@@ -37,7 +37,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-tabs
       v-model="active_tab"
       class="elevation-2"
@@ -49,22 +48,25 @@
     </v-tab>
     <v-tab-item></v-tab-item>
     <v-tab-item style="padding: 20px">
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="4">
-            <v-text-field label="标题" v-model="title"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="4">
-            <v-select v-model="visibility" :items="items" label="可见性"></v-select>
-          </v-col>
-          <v-col cols="12" sm="4">
-            <v-btn class="ma-2" tile color="black" dark @click="confirm_submit = true">提交</v-btn>
-            <v-btn class="ma-2" tile color="black" dark v-if="isload" @click="load">加载本地记录</v-btn>
-          </v-col>
-        </v-row>
-        <h6 style="color: grey; z-index: 2" v-if="!!msg">{{ msg }} <a @click="msg = ''">隐藏</a></h6>
-      </v-container>
-      <mavon-editor v-model="content" @imgAdd="imgAdd" style="min-height: 70vh; z-index: 1" :tabSize="4" :subfield="!$vuetify.breakpoint.smAndDown" @save="save"></mavon-editor>
+      <h1 v-if="error">{{ msg }}</h1>
+      <div v-else>
+        <v-container>
+          <v-row>
+            <v-col cols="12" sm="4">
+              <v-text-field label="标题" v-model="title"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-select v-model="visibility" :items="items" label="可见性"></v-select>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-btn class="ma-2" tile color="black" dark @click="confirm_submit = true">提交</v-btn>
+              <v-btn class="ma-2" tile color="black" dark v-if="isload" @click="load">加载本地记录</v-btn>
+            </v-col>
+          </v-row>
+          <h6 style="color: grey; z-index: 2" v-if="!!msg">{{ msg }} <a @click="msg = ''">隐藏</a></h6>
+        </v-container>
+        <mavon-editor v-model="content" @imgAdd="imgAdd" style="min-height: 70vh; z-index: 1" :tabSize="4" :subfield="!$vuetify.breakpoint.smAndDown" @save="save"></mavon-editor>
+      </div>
     </v-tab-item>
     <v-tab-item></v-tab-item>
     </v-tabs>
@@ -75,6 +77,7 @@
 export default {
   name: 'ArticleEdit',
   data: () => ({
+    error: false,
     article_id: '',
     msg: '',
     confirm_submit: false,
@@ -110,21 +113,6 @@ export default {
       else this.notice(res.msg, 'error')
       this.goto('/article/' + this.article_id)
     },
-    update: async function () {
-      if (!this.article_id) return
-      this.tabs[0].to = `/article/${this.article_id}`
-      this.tabs[2].to = `/article/${this.article_id}/history`
-      const res = await this.get('article/' + this.article_id)
-      if (res.code !== 200) {
-        this.notice(res.msg, 'error')
-      } else {
-        this.title = res.article.title
-        this.content = res.article.content
-        this.visibility = res.article.visibility === 1 ? '正常' : res.article.visibility === 2 ? '隐藏' : res.article.visibility === 3 ? '删除' : '未知'
-        this.raw = res.article
-        this.raw.visibility = this.visibility
-      }
-    },
     goto: function (url) {
       if (url !== '.' && url !== this.$router.currentRoute.path) this.$router.push(url)
     },
@@ -158,12 +146,28 @@ export default {
   },
   async created () {
     this.article_id = this.$route.params.id
+    this.tabs[0].to = `/article/${this.article_id}`
+    this.tabs[2].to = `/article/${this.article_id}/history`
+    const res = await this.get('article/' + this.article_id)
+    if (res.code !== 200) {
+      this.error = true
+      this.msg = res.code + ' ' + res.msg
+    } else {
+      this.title = res.article.title
+      this.content = res.article.content
+      this.visibility = res.article.visibility === 1 ? '正常' : res.article.visibility === 2 ? '隐藏' : res.article.visibility === 3 ? '删除' : '未知'
+      this.raw = res.article
+      this.raw.visibility = this.visibility
+    }
     setInterval(this.save, 1000 * 60)
-    this.update()
     if (localStorage.getItem(this.article_id)) this.isload = true
-    const res = await this.get('user')
-    if (res.code !== 200) return this.notice('您尚未登录, 请登录后编辑')
-    this.permission = res.data.permission
+    const user = await this.get('user')
+    if (user.code !== 200) {
+      this.error = true
+      this.msg = user.code + ' ' + user.msg
+      return
+    }
+    this.permission = user.data.permission
   },
   computed: {
     items: function () {
@@ -174,9 +178,6 @@ export default {
     }
   },
   watch: {
-    article_id: function () {
-      this.update()
-    },
     title: function () {
       document.title = 'RookieWiki - 编辑 - ' + this.title
     }
