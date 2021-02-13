@@ -28,6 +28,11 @@ const routes = [
         path: 'edit',
         name: 'ArticleEdit',
         component: () => import('../views/ArticleEdit.vue')
+      },
+      {
+        path: 'history',
+        name: 'ArticleHistory',
+        component: () => import('../views/ArticleHistory.vue')
       }
     ]
   }
