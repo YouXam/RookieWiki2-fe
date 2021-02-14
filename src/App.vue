@@ -105,8 +105,8 @@
         </v-menu>
 
         <div v-if="!islogin && !$vuetify.breakpoint.smAndDown">
-          <v-btn class="ma-2" tile color="white" @click.stop="login_data.show=true">登录</v-btn>
-          <v-btn class="ma-2" tile color="black" dark @click.stop="register_data.show=true">注册</v-btn>
+          <v-btn class="ma-2" tile color="white" @click.stop="login_data.show = true">登录</v-btn>
+          <v-btn class="ma-2" tile color="black" dark @click.stop="register_data.show = true">注册</v-btn>
         </div>
       </div>
     </v-app-bar>
@@ -162,13 +162,13 @@
       </v-list>
       <!-- 未登录时的菜单 -->
       <v-list v-if="!islogin">
-        <v-list-item @click="login_data.show=true">
+        <v-list-item @click="login_data.show=true, drawer = false">
           <v-list-item-icon>
             <v-icon>mdi-login</v-icon>
           </v-list-item-icon>
           <v-list-item-title>登录</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="register_data.show=true">
+        <v-list-item @click="register_data.show=true, drawer = false">
           <v-list-item-icon>
             <v-icon>mdi-registered-trademark</v-icon>
           </v-list-item-icon>
