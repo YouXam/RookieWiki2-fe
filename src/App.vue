@@ -78,9 +78,12 @@
         <v-tab v-for="link in ($vuetify.breakpoint.smAndDown ? [] : links)" :key="link.to" :to="link.to">
           {{ link.text }}
         </v-tab>
-        <v-tab to='/about' v-if="!$vuetify.breakpoint.smAndDown">
-          关于
+        <v-tab to='/articles' v-if="!$vuetify.breakpoint.smAndDown">
+          文章列表
         </v-tab>
+        <!-- <v-tab to='/about' v-if="!$vuetify.breakpoint.smAndDown">
+          关于
+        </v-tab> -->
       </v-tabs>
       <div class='login-box'>
 
@@ -130,12 +133,18 @@
           </v-list-item-icon>
           <v-list-item-title>{{ link.text }}</v-list-item-title>
         </v-list-item>
-        <v-list-item  @click="goto('/about')">
+        <v-list-item  @click="goto('/articles')">
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-star</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>文章列表</v-list-item-title>
+        </v-list-item>
+        <!-- <v-list-item  @click="goto('/about')">
           <v-list-item-icon>
             <v-icon>mdi-information</v-icon>
           </v-list-item-icon>
           <v-list-item-title>关于</v-list-item-title>
-        </v-list-item>
+        </v-list-item> -->
       </v-list>
       <v-divider></v-divider>
       <!-- 登录时的菜单 -->

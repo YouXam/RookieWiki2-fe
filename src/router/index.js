@@ -15,24 +15,29 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
+    path: '/articles',
+    name: 'ArticleList',
+    component: () => import('../views/ArticleList.vue')
+  },
+  {
     path: '/article/:id',
     name: 'Article',
     component: () => import('../views/Article.vue'),
     children: [
       {
         path: '',
-        name: 'ArticleView',
-        component: () => import('../views/ArticleView.vue')
+        name: 'Read',
+        component: () => import('../views/Read.vue')
       },
       {
         path: 'edit',
-        name: 'ArticleEdit',
-        component: () => import('../views/ArticleEdit.vue')
+        name: 'Edit',
+        component: () => import('../views/Edit.vue')
       },
       {
         path: 'history',
-        name: 'ArticleHistory',
-        component: () => import('../views/ArticleHistory.vue')
+        name: 'Histories',
+        component: () => import('../views/Histories.vue')
       }
     ]
   }
