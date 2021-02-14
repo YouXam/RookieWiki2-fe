@@ -26,6 +26,9 @@
         <v-card-title>
           <span class="headline">确认提交?</span>
         </v-card-title>
+        <v-container>
+          <v-text-field label="编辑记录" v-model="log"></v-text-field>
+        </v-container>
         <v-card-text>
           如果您未编辑完成, 可以点击工具栏上的保存按钮或按ctrl+s保存到本地。<br/>
           请确认编辑完成后提交。
@@ -75,11 +78,12 @@
 
 <script>
 export default {
-  name: 'ArticleEdit',
+  name: 'Edit',
   data: () => ({
     error: false,
     article_id: '',
     msg: '',
+    log: '',
     confirm_submit: false,
     isload: false,
     title: '',
@@ -102,15 +106,16 @@ export default {
   methods: {
     submit: async function () {
       this.confirm_submit = false
-      const update = {}
+      const update = { log: this.log }
       if (this.title !== this.raw.title) update.title = this.title
       if (this.content !== this.raw.content) update.content = this.content
       if (this.visibility !== this.raw.visibility && this.items.indexOf(this.visibility) !== -1) {
         update.visibility = this.visibility === '正常' ? 1 : this.visibility === '隐藏' ? 2 : 3
       }
+      console.log(update)
       const res = await this.post('article/' + this.article_id, update)
       if (res.code === 200) this.notice(res.msg)
-      else this.notice(res.msg, 'error')
+      else return this.notice(res.msg, 'error')
       this.goto('/article/' + this.article_id)
     },
     goto: function (url) {

@@ -5,7 +5,7 @@
 <script>
 import Viewer from '@/components/Viewer.vue'
 export default {
-  name: 'ArticleView',
+  name: 'Read',
   components: {
     Viewer
   }
