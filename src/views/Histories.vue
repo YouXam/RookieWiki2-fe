@@ -91,9 +91,11 @@ export default {
       if (url !== '.' && url !== this.$router.currentRoute.path) this.$router.push(url)
     },
     update: async function () {
+      const article = await this.get('article/' + this.article_id)
       const res = await this.get('article/' + this.article_id + '/history?page=' + this.page)
       if (res.code === 200) {
         this.histories = res.histories
+        document.title = 'RookieWiki - 历史记录 - ' + article.article.title
         this.length = parseInt((res.total - 1) / (res.size || 100)) + 1
       } else {
         this.error = true
@@ -102,6 +104,7 @@ export default {
     }
   },
   async created () {
+    document.title = 'RookieWiki - 历史记录 - ' + this.title
     this.page = parseInt(this.$route.query.page) || 1
     this.$watch('page', function (v) {
       this.$router.push({ query: { page: v } })
@@ -111,11 +114,6 @@ export default {
     this.tabs[0].to = `/article/${this.article_id}`
     this.tabs[1].to = `/article/${this.article_id}/edit`
     this.update()
-  },
-  watch: {
-    title: function () {
-      document.title = 'RookieWiki - 历史记录 - ' + this.title
-    }
   }
 }
 </script>

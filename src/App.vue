@@ -237,6 +237,13 @@ export default {
     menu: function () {
       return [
         {
+          title: '新增文章',
+          icon: 'mdi-plus',
+          action: () => {
+            this.goto('/add')
+          }
+        },
+        {
           title: this.username,
           icon: 'mdi-link',
           action: () => {}

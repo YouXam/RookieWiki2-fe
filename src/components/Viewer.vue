@@ -23,7 +23,8 @@ import Markdown from '@/components/Markdown.vue'
 export default {
   name: 'Viewer',
   props: {
-    id: String
+    id: String,
+    pageTitle: String
   },
   components: {
     Markdown
@@ -50,6 +51,7 @@ export default {
         this.content = ''
       } else {
         this.title = res.article.title
+        document.title = this.pageTitle || ('RookieWiki - ' + this.title)
         this.content = res.article.content
       }
     },
@@ -68,9 +70,6 @@ export default {
   watch: {
     article_id: function () {
       this.update()
-    },
-    title: function () {
-      document.title = `RookieWiki - ${this.title}`
     }
   }
 }
