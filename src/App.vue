@@ -9,7 +9,7 @@
         <v-card-text>
           <v-container>
             <v-form>
-              <v-text-field v-model="login_data.username" label="用户名" clearable></v-text-field>
+              <v-text-field v-model="login_data.username" label="用户名/邮箱" clearable></v-text-field>
               <v-text-field v-model="login_data.password" label="密码" type="password" clearable></v-text-field>
             </v-form>
           </v-container>
@@ -286,7 +286,7 @@ export default {
       this.login_data.loading = true
       const res = await this.post('login', {
         username: this.login_data.username,
-        password: md5(this.login_data.password + 'rookiewiki' + this.login_data.username)
+        password: md5(this.login_data.password + 'rookiewiki')
       })
       this.login_data.loading = false
       if (res.code !== 200) this.notice(res.msg, 'error')
@@ -305,7 +305,7 @@ export default {
       this.register_data.loading = true
       const res = await this.post('register', {
         username: this.register_data.username,
-        password: md5(this.register_data.password + 'rookiewiki' + this.register_data.username),
+        password: md5(this.register_data.password + 'rookiewiki'),
         email: this.register_data.email
       })
       this.register_data.loading = false
