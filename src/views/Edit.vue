@@ -112,10 +112,10 @@ export default {
       if (this.visibility !== this.raw.visibility && this.items.indexOf(this.visibility) !== -1) {
         update.visibility = this.visibility === '正常' ? 1 : this.visibility === '隐藏' ? 2 : 3
       }
-      console.log(update)
       const res = await this.post('article/' + this.article_id, update)
       if (res.code === 200) this.notice(res.msg)
       else return this.notice(res.msg, 'error')
+      localStorage.setItem(this.article_id, '')
       this.goto('/article/' + this.article_id)
     },
     goto: function (url) {
@@ -159,6 +159,7 @@ export default {
       this.msg = res.code + ' ' + res.msg
     } else {
       this.title = res.article.title
+      document.title = 'RookieWiki - 编辑 - ' + this.title
       this.content = res.article.content
       this.visibility = res.article.visibility === 1 ? '正常' : res.article.visibility === 2 ? '隐藏' : res.article.visibility === 3 ? '删除' : '未知'
       this.raw = res.article

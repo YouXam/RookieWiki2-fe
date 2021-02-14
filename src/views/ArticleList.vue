@@ -54,6 +54,7 @@ export default {
     }
   },
   async created () {
+    document.title = 'RookieWiki - 文章列表'
     this.page = parseInt(this.$route.query.page) || 1
     this.$watch('page', function (v) {
       this.$router.push({ query: { page: v } })
