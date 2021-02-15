@@ -68,7 +68,7 @@
           </v-row>
           <h6 style="color: grey; z-index: 2" v-if="!!msg">{{ msg }} <a @click="msg = ''">隐藏</a></h6>
         </v-container>
-        <mavon-editor v-model="content" @imgAdd="imgAdd" style="min-height: 70vh; z-index: 1" :tabSize="4" :subfield="!$vuetify.breakpoint.smAndDown" @save="save"></mavon-editor>
+        <mavon-editor v-model="content" @imgAdd="imgAdd" style="min-height: 65vh; z-index: 1" :tabSize="4" :subfield="!$vuetify.breakpoint.smAndDown" @save="save"></mavon-editor>
       </div>
     </v-tab-item>
     <v-tab-item></v-tab-item>

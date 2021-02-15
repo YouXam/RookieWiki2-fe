@@ -179,6 +179,18 @@
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
+    <v-footer :padless="true">
+      <v-card
+        tile
+        width="100%"
+        class="lighten-1 text-center"
+      >
+        <v-card-text>
+          <a href="https://beian.miit.gov.cn/" target="_blank" class="link"> 鄂ICP备20003020号</a>
+          ©{{ new Date().getFullYear() }} <strong>RookieWiki </strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 

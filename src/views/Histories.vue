@@ -25,7 +25,7 @@
             :key="index"
             :small="true"
           >
-            <v-card class="elevation-2" @click="1">
+            <v-card class="elevation-2" @click="goto('/article/' + article_id + '/history/' + item._id)">
               <v-card-title class="headline" v-if="item.log">
                 {{ item.log }}
               </v-card-title>
@@ -104,7 +104,6 @@ export default {
     }
   },
   async created () {
-    document.title = 'RookieWiki - 历史记录 - ' + this.title
     this.page = parseInt(this.$route.query.page) || 1
     this.$watch('page', function (v) {
       this.$router.push({ query: { page: v } })
