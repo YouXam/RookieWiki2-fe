@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 70vh">
+  <div :style="article ? 'min-height: 65vh' : ''">
     <components :is="html" class="markdown-body"></components>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   name: 'Markdown',
   props: {
     content: String,
-    editable: Boolean
+    article: Boolean
   },
   data: () => ({
     md: null

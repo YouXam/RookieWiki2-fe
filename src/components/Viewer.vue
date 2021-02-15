@@ -11,7 +11,7 @@
   <v-tab-item style="padding: 20px">
     <h1>{{ title }}</h1>
     <v-divider v-if="!!title"></v-divider>
-    <Markdown :content="content"/>
+    <Markdown :content="content" :article="true"/>
   </v-tab-item>
   <v-tab-item></v-tab-item>
   <v-tab-item></v-tab-item>
