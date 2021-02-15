@@ -8,7 +8,7 @@ import 'vuetify/dist/vuetify.min.css'
 import 'nprogress/nprogress.css'
 import 'github-markdown-css/github-markdown.css'
 
-const base = process.env.NODE_ENV === 'development' ? 'http://192.168.31.211:3000/api/' : 'http://zhang-yj.top:3000/api/'
+const base = process.env.NODE_ENV === 'development' ? 'http://192.168.31.211:3000/api/' : '/api/'
 
 NProgress.configure({
   easing: 'ease',

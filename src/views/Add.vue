@@ -31,7 +31,7 @@
                 <span class="headline">确认提交?</span>
               </v-card-title>
               <v-container>
-                <v-text-field label="编辑记录" v-model="log"></v-text-field>
+                <v-text-field label="编辑记录: 简要描述你编辑内容" v-model="log"></v-text-field>
               </v-container>
               <v-card-text>
                 如果您未编辑完成, 可以点击工具栏上的保存按钮或按ctrl+s保存到本地。<br/>
