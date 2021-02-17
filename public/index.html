@@ -24,10 +24,58 @@
       .link:hover {
         color: rgb(141, 141, 141) !important;
       }
+      .hidden {
+        display: none !important;
+      }
+      .spinner {
+        width: 60px;
+        height: 60px;
+        top: calc(50vh - 60px / 2);
+        left: calc(50vw - 60px / 2);
+        position: absolute;
+      }
+       
+      .double-bounce1, .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #000000;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+         
+        -webkit-animation: bounce 2.0s infinite ease-in-out;
+        animation: bounce 2.0s infinite ease-in-out;
+      }
+       
+      .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+      }
+       
+      @-webkit-keyframes bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+      }
+       
+      @keyframes bounce {
+        0%, 100% {
+          transform: scale(0.0);
+          -webkit-transform: scale(0.0);
+        } 50% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+        }
+      }
     </style>
     <title>RookieWiki</title>
   </head>
   <body>
+    <div class="spinner" id="preloader">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
     <noscript>
       <strong>很抱歉, 此网页需要JavaScript支持, 请启动JavaScript</strong>
     </noscript>

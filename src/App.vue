@@ -333,6 +333,7 @@ export default {
     }
   },
   async created () {
+    document.getElementById('preloader').classList.add('hidden')
     this.links = (await this.get('navigation')).data
     if (localStorage.getItem('token')) this.update_info()
   }
