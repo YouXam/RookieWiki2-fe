@@ -16,6 +16,8 @@ import abbr from 'markdown-it-abbr' // 悬停注解 https://github.com/markdown-
 import ins from 'markdown-it-ins' // ++inserted++
 import mark from 'markdown-it-mark' // ==marked==
 import lists from 'markdown-it-task-lists' // - [ ] todo
+import footnote from 'markdown-it-footnote'
+import toc from 'markdown-it-toc'
 
 export default {
   name: 'Markdown',
@@ -29,8 +31,8 @@ export default {
   computed: {
     html: function () {
       let res = this.md.render(this.content)
-      res = res.replace(/<a href="(?!http:\/\/|https:\/\/)(.*?)">(.*?)<\/a>/g, '<router-link to="$1">$2</router-link>')
-      res = res.replace(/<a href="(.*?)">(.*?)<\/a>/g, '<a href="$1" target="_blank">$2</a>')
+      res = res.replace(/<a href="(?!http:\/\/|https:\/\/)([^#]*?)">(.*?)<\/a>/g, '<router-link to="$1">$2</router-link>')
+      res = res.replace(/<a href="(?!#)(.*?)">(.*?)<\/a>/g, '<a href="$1" target="_blank">$2</a>')
       return {
         template: '<div>' + res + '</div>'
       }
@@ -48,6 +50,8 @@ export default {
       .use(ins)
       .use(mark)
       .use(lists)
+      .use(footnote)
+      .use(toc)
       .use(container, 'hljs-center', {
         render: (tokens, idx) => {
           return tokens[idx].nesting === 1 ? '<div class="hljs-center">' : '</div>\n'

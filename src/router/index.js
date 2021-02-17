@@ -30,6 +30,11 @@ const routes = [
     component: () => import('../views/History.vue')
   },
   {
+    path: '/article/:article_id/diff',
+    name: 'Diff',
+    component: () => import('../views/Diff.vue')
+  },
+  {
     path: '/article/:id',
     name: 'Article',
     component: () => import('../views/Article.vue'),

@@ -69,7 +69,7 @@
     </v-snackbar>
 
     <!--导航栏-->
-    <v-app-bar app color="white" flat>
+    <v-app-bar app color="white" class="elevation-3" elevate-on-scroll>
       <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer" style="z-index: 9999"></v-app-bar-nav-icon>
       <v-tabs centered class="ml-n9" color="grey darken-1">
         <v-tab to='/'>
@@ -112,7 +112,7 @@
     </v-app-bar>
 
     <!-- 移动端菜单 -->
-    <v-navigation-drawer v-model="drawer" absolute temporary style="z-index: 99999">
+    <v-navigation-drawer fixed v-model="drawer" temporary>
       <v-avatar v-if="islogin" color="grey darken-1 shrink" size="120" class="mobile-avatar">
         <img :src="avatar" @error="default_avatar()"/>
       </v-avatar>
@@ -176,10 +176,12 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
-    <v-footer :padless="true">
+
+    <v-footer :padless="true" class="elevation-2">
       <v-card
         tile
         width="100%"
