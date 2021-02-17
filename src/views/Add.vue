@@ -84,7 +84,8 @@ export default {
       show: false,
       text: '',
       color: ''
-    }
+    },
+    items: ['正常']
   }),
   methods: {
     submit: async function () {
@@ -139,14 +140,6 @@ export default {
       return
     }
     this.permission = user.data.permission
-  },
-  computed: {
-    items: function () {
-      const res = ['正常']
-      if (this.permission > 1) res.push('隐藏')
-      if (this.permission > 2) res.push('删除')
-      return res
-    }
   },
   watch: {
     title: function () {

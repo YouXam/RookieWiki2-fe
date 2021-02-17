@@ -1,7 +1,7 @@
 <template>
   <v-main class="grey lighten-3">
     <v-container>
-      <v-sheet class="white" style="padding: 10px">
+      <v-sheet class="white elevation-2" style="padding: 10px">
         <v-pagination
           v-model="page"
           :length="length"
