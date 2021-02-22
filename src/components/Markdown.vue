@@ -31,8 +31,14 @@ export default {
   computed: {
     html: function () {
       let res = this.md.render(this.content)
-      res = res.replace(/<a href="(?!http:\/\/|https:\/\/)([^#]*?)">(.*?)<\/a>/g, '<router-link to="$1">$2</router-link>')
-      res = res.replace(/<a href="(?!#)(.*?)">(.*?)<\/a>/g, '<a href="$1" target="_blank">$2</a>')
+      res = res.replace(
+        /<a href="(?!http:\/\/|https:\/\/)([^#]*?)">(.*?)<\/a>/g,
+        '<router-link to="$1">$2</router-link>'
+      )
+      res = res.replace(
+        /<a href="(?!#)(.*?)">(.*?)<\/a>/g,
+        '<a href="$1" target="_blank">$2</a>'
+      )
       return {
         template: '<div>' + res + '</div>'
       }
@@ -54,17 +60,23 @@ export default {
       .use(toc)
       .use(container, 'hljs-center', {
         render: (tokens, idx) => {
-          return tokens[idx].nesting === 1 ? '<div class="hljs-center">' : '</div>\n'
+          return tokens[idx].nesting === 1
+            ? '<div class="hljs-center">'
+            : '</div>\n'
         }
       })
       .use(container, 'hljs-left', {
         render: (tokens, idx) => {
-          return tokens[idx].nesting === 1 ? '<div class="hljs-left">' : '</div>\n'
+          return tokens[idx].nesting === 1
+            ? '<div class="hljs-left">'
+            : '</div>\n'
         }
       })
       .use(container, 'hljs-right', {
         render: (tokens, idx) => {
-          return tokens[idx].nesting === 1 ? '<div class="hljs-right">' : '</div>\n'
+          return tokens[idx].nesting === 1
+            ? '<div class="hljs-right">'
+            : '</div>\n'
         }
       })
   }

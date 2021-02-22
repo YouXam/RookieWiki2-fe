@@ -1,5 +1,5 @@
 <template>
-  <Viewer :id="$route.params.id"/>
+  <Viewer :id="$route.params.id" />
 </template>
 
 <script>

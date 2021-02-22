@@ -4,7 +4,6 @@ import router from './router'
 import Vuetify from 'vuetify'
 import NProgress from 'nprogress'
 import mavonEditor from 'mavon-editor-x'
-import 'github-markdown-css/github-markdown.css'
 
 const base = process.env.NODE_ENV === 'development' ? 'http://192.168.31.211:3000/api/' : '/api/'
 
@@ -34,7 +33,7 @@ Vue.prototype.get = async function (url) {
     headers: {},
     method: 'GET'
   }
-  if (localStorage.getItem('token')) options.headers.Authorization = 'Bearer ' + localStorage.getItem('token')
+  if (localStorage.getItem('token')) { options.headers.Authorization = 'Bearer ' + localStorage.getItem('token') }
   const res = await fetch(base + url, options)
   return await res.json()
 }
@@ -47,11 +46,11 @@ Vue.prototype.post = async function (url, data) {
     },
     method: 'POST'
   }
-  if (localStorage.getItem('token')) options.headers.Authorization = 'Bearer ' + localStorage.getItem('token')
+  if (localStorage.getItem('token')) { options.headers.Authorization = 'Bearer ' + localStorage.getItem('token') }
   const res = await fetch(base + url, options)
   return await res.json()
 }
-
+Vue.prototype.permissionEnum = e => ({ 正常: 1, 隐藏: 2, 删除: 3, 1: '正常', 2: '隐藏', 3: '删除' })[e]
 new Vue({
   router,
   vuetify: new Vuetify(),
