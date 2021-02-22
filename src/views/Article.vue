@@ -15,14 +15,16 @@ export default {
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s ease;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
 }
-.fade-enter, .fade-leave-active {
+.fade-enter,
+.fade-leave-active {
   opacity: 0;
 }
 .custom-loader {
-  animation: loader .2s infinite;
+  animation: loader 0.2s infinite;
   display: flex;
 }
 @-moz-keyframes loader {

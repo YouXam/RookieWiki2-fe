@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Read from '../views/Read.vue'
+import Edit from '../views/Edit.vue'
+import Histories from '../views/Histories.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +28,11 @@ const routes = [
     component: () => import('../views/ArticleList.vue')
   },
   {
+    path: '/verify',
+    name: 'Verify',
+    component: () => import('../views/Verify.vue')
+  },
+  {
     path: '/article/:article_id/history/:history_id',
     name: 'History',
     component: () => import('../views/History.vue')
@@ -35,6 +43,11 @@ const routes = [
     component: () => import('../views/Diff.vue')
   },
   {
+    path: '/user/:username',
+    name: 'User',
+    component: () => import('../views/User.vue')
+  },
+  {
     path: '/article/:id',
     name: 'Article',
     component: () => import('../views/Article.vue'),
@@ -42,19 +55,24 @@ const routes = [
       {
         path: '',
         name: 'Read',
-        component: () => import('../views/Read.vue')
+        component: Read
       },
       {
         path: 'edit',
         name: 'Edit',
-        component: () => import('../views/Edit.vue')
+        component: Edit
       },
       {
         path: 'history',
         name: 'Histories',
-        component: () => import('../views/Histories.vue')
+        component: Histories
       }
     ]
+  },
+  {
+    path: '*',
+    name: 'P404',
+    component: () => import('../views/P404.vue')
   }
 ]
 

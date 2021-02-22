@@ -6,27 +6,19 @@
         <div v-else>
           <v-container>
             <v-row>
-              <v-col cols="12"  sm="6">
-                <v-select
-                  :items="items"
-                  v-model="ashow"
-                  label="A"
-                ></v-select>
+              <v-col cols="12" sm="6">
+                <v-select :items="items" v-model="ashow" label="A"></v-select>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-select
-                  :items="items"
-                  v-model="bshow"
-                  label="B"
-                ></v-select>
+                <v-select :items="items" v-model="bshow" label="B"></v-select>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12"  sm="6">
-                <h1 class='text-center'>{{ historyA.data.title }}</h1>
+              <v-col cols="12" sm="6">
+                <h1 class="text-center">{{ historyA.data.title }}</h1>
               </v-col>
               <v-col cols="12" sm="6">
-                <h1 class='text-center'>{{ historyB.data.title }}</h1>
+                <h1 class="text-center">{{ historyB.data.title }}</h1>
               </v-col>
             </v-row>
             <v-container>
@@ -73,13 +65,20 @@ export default {
     document.title = 'RookieWiki - 比较'
     this.article_id = this.$route.params.article_id
     const r = await this.get('article/' + this.article_id + '/history/')
-    if (r.code !== 200) {
+    if (r.code === 200) this.histories = r.histories
+    else if (r.code === 404) {
+      this.$router.replace('/404')
+    } else {
       this.error = true
       this.msg = r.code + ' ' + r.msg
-    } else this.histories = r.histories
+    }
     await this.update()
-    this.$watch('ashow', function () { this.goto() })
-    this.$watch('bshow', function () { this.goto() })
+    this.$watch('ashow', function () {
+      this.goto()
+    })
+    this.$watch('bshow', function () {
+      this.goto()
+    })
   },
   computed: {
     items: function () {
@@ -102,18 +101,31 @@ export default {
     update: async function () {
       this.aid = this.$route.query.aid
       this.bid = this.$route.query.bid
-      const a = await this.get('article/' + this.article_id + '/history?num=' + this.aid)
-      const b = await this.get('article/' + this.article_id + '/history?num=' + this.bid)
+      const a = await this.get(
+        'article/' + this.article_id + '/history?num=' + this.aid
+      )
+      const b = await this.get(
+        'article/' + this.article_id + '/history?num=' + this.bid
+      )
       if (a.code === 200 && b.code === 200) {
         this.historyA = a.history
         this.historyB = b.history
-        this.ashow = `#${this.historyA.num} ${this.historyA.log ? '-' : ''} ${this.historyA.log}`
-        this.bshow = `#${this.historyB.num} ${this.historyB.log ? '-' : ''} ${this.historyB.log}`
+        this.ashow = `#${this.historyA.num} ${this.historyA.log ? '-' : ''} ${
+          this.historyA.log
+        }`
+        this.bshow = `#${this.historyB.num} ${this.historyB.log ? '-' : ''} ${
+          this.historyB.log
+        }`
+      } else if (a.code === 404 || b.code === 404) {
+        this.$router.replace('/404')
       } else {
         this.error = true
         this.msg = a.code + ' ' + a.msg + '|' + b.code + ' ' + b.msg
       }
-      const list = Diff.diffLines(this.historyA.data.content, this.historyB.data.content)
+      const list = Diff.diffLines(
+        this.historyA.data.content,
+        this.historyB.data.content
+      )
       const res = []
       for (const i of list) {
         const s = i.value.slice(0, i.value.length - 1).split('\n')
@@ -137,5 +149,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -16,7 +16,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in articles" :key="index" @click="$router.push('/article/' + item._id)">
+              <tr
+                v-for="(item, index) in articles"
+                :key="index"
+                @click="$router.push('/article/' + item._id)"
+              >
                 <td class="text" style="width:20%">{{ item.title }}</td>
                 <td class="text">{{ item.content }}</td>
               </tr>
@@ -47,6 +51,8 @@ export default {
       if (res.code === 200) {
         this.articles = res.articles
         this.length = parseInt((res.total - 1) / (res.size || 20)) + 1
+      } else if (res.code === 404) {
+        this.$router.replace('/404')
       } else {
         this.error = true
         this.msg = res.code + ' ' + res.msg
