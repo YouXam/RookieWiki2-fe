@@ -16,8 +16,8 @@ import abbr from 'markdown-it-abbr' // 悬停注解 https://github.com/markdown-
 import ins from 'markdown-it-ins' // ++inserted++
 import mark from 'markdown-it-mark' // ==marked==
 import lists from 'markdown-it-task-lists' // - [ ] todo
-import footnote from 'markdown-it-footnote'
-import toc from 'markdown-it-toc'
+import footnote from 'markdown-it-footnote' // 脚注
+import toc from 'markdown-it-toc' // 目录
 
 export default {
   name: 'Markdown',

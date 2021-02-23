@@ -1,9 +1,9 @@
 <template>
-  <v-main class="grey lighten-3">
+  <v-main class="lighten-3">
     <v-container>
-      <v-sheet class="white elevation-2 text-center" style="padding: 10px" min-height="70vh">
-        <h1>{{ info }}</h1>
-      </v-sheet>
+      <strong>{{ info }}</strong>
+      <v-divider></v-divider>
+      <v-btn style="margin: 15px;" text x-large to="/">首页</v-btn>
     </v-container>
   </v-main>
 </template>
@@ -21,3 +21,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+strong {
+  font-size: 100px;
+}
+</style>
