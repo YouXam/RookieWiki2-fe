@@ -143,9 +143,9 @@
       <v-app-bar-nav-icon
         v-if="$vuetify.breakpoint.smAndDown"
         @click.stop="drawer = !drawer"
-        style="z-index: 9999"
+        style="z-index: 9999; position: absolute;"
       ></v-app-bar-nav-icon>
-      <v-tabs centered class="ml-n9" color="grey darken-1">
+      <v-tabs :class="{ 'left-box': !$vuetify.breakpoint.smAndDown }" color="grey darken-1" width="100%" centered style="padding-right: 16px">
         <v-tab to="/">
           <h2>RookieWiki</h2>
         </v-tab>
@@ -159,12 +159,23 @@
         <v-tab to="/articles" v-if="!$vuetify.breakpoint.smAndDown">
           文章列表
         </v-tab>
-        <!-- <v-tab to='/about' v-if="!$vuetify.breakpoint.smAndDown">
-          关于
-        </v-tab> -->
       </v-tabs>
-      <div class="login-box">
-        <v-menu bottom v-if="islogin" :offset-y="true">
+      <v-responsive style="margin-left: 40%; max-width: 20%"  v-if="!$vuetify.breakpoint.smAndDown">
+        <v-text-field
+          label="搜索"
+          placeholder="回车以搜索"
+          filled
+          single-line
+          hide-details
+          v-model="search_text"
+          dense
+          clearable
+          @click:clear="search(search_text = '')"
+          @keyup.enter="search"
+        ></v-text-field>
+      </v-responsive>
+      <div class="login-box" v-if="!$vuetify.breakpoint.smAndDown">
+         <v-menu bottom v-if="islogin" :offset-y="true">
           <template v-slot:activator="{ on, attrs }">
             <v-avatar
               color="grey darken-1 shrink"
@@ -220,7 +231,7 @@
       <div style="text-align: center; margin: 20px 0px">
         <h2>{{ username }}</h2>
       </div>
-      <v-divider></v-divider>
+      <v-divider v-if="islogin"></v-divider>
       <v-list>
         <v-list-item @click="goto('/')">
           <v-list-item-icon>
@@ -244,12 +255,6 @@
           </v-list-item-icon>
           <v-list-item-title>文章列表</v-list-item-title>
         </v-list-item>
-        <!-- <v-list-item  @click="goto('/about')">
-          <v-list-item-icon>
-            <v-icon>mdi-information</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>关于</v-list-item-title>
-        </v-list-item> -->
       </v-list>
       <v-divider></v-divider>
       <!-- 登录时的菜单 -->
@@ -280,6 +285,20 @@
           <v-list-item-title>注册</v-list-item-title>
         </v-list-item>
       </v-list>
+      <v-divider></v-divider>
+      <v-text-field
+        label="搜索"
+        placeholder="回车以搜索"
+        filled
+        single-line
+        hide-details
+        dense
+        v-model="search_text"
+        clearable
+        @click:clear="search(search_text = '')"
+        style="margin: 10px 10px"
+        @keyup.enter="search"
+      ></v-text-field>
     </v-navigation-drawer>
 
     <transition name="fade" mode="out-in">
@@ -304,6 +323,7 @@ import md5 from 'md5'
 
 export default {
   data: () => ({
+    search_text: '',
     verified: false,
     showTop: false,
     avatar: '',
@@ -387,6 +407,11 @@ export default {
     }
   },
   methods: {
+    search: function () {
+      try {
+        this.$router.push({ path: '/articles', query: { search: this.search_text, id: Math.random() } })
+      } catch {}
+    },
     scrollToTop: function () {
       window.scrollTo({
         top: 0,
@@ -487,6 +512,13 @@ export default {
   right: 0px;
   text-align: right;
   padding-right: 20px;
+}
+.left-box {
+  width: 40%;
+  position: absolute;
+  left: 0px;
+  z-index: 999;
+  text-align: left;
 }
 .custom-loader {
   animation: loader 1s infinite;

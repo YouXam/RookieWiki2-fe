@@ -47,7 +47,9 @@ export default {
   }),
   methods: {
     update: async function () {
-      const res = await this.get('articles?page=' + this.page)
+      let url = 'articles?page=' + this.page
+      if (this.$route.query.search) url += '&search=' + this.$route.query.search
+      const res = await this.get(url)
       if (res.code === 200) {
         this.articles = res.articles
         this.length = parseInt((res.total - 1) / (res.size || 20)) + 1
@@ -57,6 +59,11 @@ export default {
         this.error = true
         this.msg = res.code + ' ' + res.msg
       }
+    }
+  },
+  watch: {
+    '$route.query.search': function () {
+      this.update()
     }
   },
   async created () {
