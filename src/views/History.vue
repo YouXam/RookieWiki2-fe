@@ -4,11 +4,11 @@
       <v-dialog v-model="confirm_revert" max-width="600px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">确认回滚?</span>
+            <span class="headline">确认还原?</span>
           </v-card-title>
           <v-container>
             <v-text-field
-              label="回滚记录: 简要陈述你的回滚理由"
+              label="还原记录: 简要陈述你的还原理由"
               v-model="log"
             ></v-text-field>
           </v-container>
@@ -50,7 +50,7 @@
             >和上一版本比较</v-btn
           >
           <v-btn class="ma-1" plain @click="confirm_revert = true"
-            >回滚到此版本</v-btn
+            >还原到此版本</v-btn
           >
           <v-btn class="ma-1" plain @click="change = true">修改可见性</v-btn>
           <v-list>

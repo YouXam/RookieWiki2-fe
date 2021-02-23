@@ -16,6 +16,40 @@
         <v-icon>mdi-arrow-up-thick</v-icon>
       </v-btn>
     </v-fab-transition>
+
+    <!-- 找回密码表单框 -->
+    <v-dialog v-model="find.show" max-width="600px" persistent>
+      <v-card>
+        <v-card-title>
+          <span class="headline">找回密码</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-form>
+              <v-text-field
+                v-model="find.username"
+                label="用户名/邮箱"
+                clearable
+              ></v-text-field>
+            </v-form>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="find.show = false, login_data.show = true">返回</v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            :disabled="find.disabled"
+            @click="reset"
+            :loading="find.loading"
+            >提交<span v-show="find.disabled">({{ find.last }}秒)</span>
+          </v-btn>
+          <v-btn color="cancel darken-1" depressed dark @click="find.show = false">取消</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- 登录表单框 -->
     <v-dialog v-model="login_data.show" max-width="600px" persistent>
       <v-card>
@@ -42,22 +76,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click=";(login_data.show = false), (register_data.show = true)"
-            >前去注册</v-btn
-          >
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="login"
-            :loading="login_data.loading"
-            >登录</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="login_data.show = false"
-            >取消</v-btn
-          >
+          <v-btn color="blue darken-1" text @click="find.show = true, login_data.show = false" >忘记密码</v-btn>
+          <v-btn color="blue darken-1" text @click="login_data.show = false, register_data.show = true" > 前去注册 </v-btn>
+          <v-btn color="blue darken-1" depressed dark @click="login" :loading="login_data.loading">登录</v-btn>
+          <v-btn color="cancel darken-1" depressed dark @click="login_data.show = false">取消</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -103,22 +125,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click=";(register_data.show = false), (login_data.show = true)"
-            >前去登录</v-btn
-          >
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="register"
-            :loading="register_data.loading"
-            >注册</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="register_data.show = false"
-            >取消</v-btn
-          >
+          <v-btn color="blue darken-1" text @click=";(register_data.show = false), (login_data.show = true)" >前去登录</v-btn >
+          <v-btn color="blue darken-1" depressed dark @click="register" :loading="register_data.loading" >注册</v-btn >
+          <v-btn color="cancel darken-1" depressed dark @click="register_data.show = false" >取消</v-btn >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -170,7 +179,7 @@
           v-model="search_text"
           dense
           clearable
-          @click:clear="search(search_text = '')"
+          @click:clear="clear_search"
           @keyup.enter="search"
         ></v-text-field>
       </v-responsive>
@@ -336,7 +345,6 @@ export default {
       avatar: '',
       username: '',
       password: '',
-      loading: false,
       show: false
     },
     register_data: {
@@ -367,7 +375,17 @@ export default {
       color: ''
     },
     permission: 1,
-    desktop_menu: false
+    desktop_menu: false,
+    find: {
+      show: false,
+      loading: false,
+      reset: false,
+      disabled: false,
+      time: '',
+      last: '',
+      timmer: 0,
+      username: ''
+    }
   }),
   computed: {
     confirmRules: function () {
@@ -407,6 +425,28 @@ export default {
     }
   },
   methods: {
+    clear_search: function () {
+      console.log(this.$route.path)
+      if (this.$route.path === '/articles') this.search(this.search_text = '')
+    },
+    reset: async function () {
+      this.find.loading = true
+      const res = await this.post('find', { username: this.find.username })
+      this.notice(res.msg, res.code === 200)
+      if (res.code === 200 || res.code === 401) {
+        this.find.time = new Date(res.time)
+        this.find.last = 5 * 60 - parseInt((new Date() - this.find.time) / 1000)
+        this.find.disabled = true
+        this.find.timmer = setInterval(() => {
+          this.find.last = 5 * 60 - parseInt((new Date() - this.find.time) / 1000)
+          if (this.find.last <= 0) {
+            this.find.disabled = false
+            clearInterval(this.find.timmer)
+          }
+        }, 1000)
+      }
+      this.find.loading = false
+    },
     search: function () {
       try {
         this.$router.push({ path: '/articles', query: { search: this.search_text, id: Math.random() } })
