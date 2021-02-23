@@ -214,6 +214,7 @@ export default {
       }
       const res = await this.post('article/' + this.article_id, update)
       this.app.notice(res.msg, res.code === 200)
+      if (res.code === 423) return this.$router.push('/user/' + this.app.username)
       this.$router.push('/article/' + this.article_id)
     },
     changev: async function () {
@@ -225,6 +226,7 @@ export default {
         }
       )
       this.app.notice(res.msg, res.code === 200)
+      if (res.code === 423) return this.$router.push('/user/' + this.app.username)
       this.update()
     },
     update: async function () {
@@ -242,7 +244,7 @@ export default {
         this.length = parseInt((res.total - 1) / (res.size || 20)) + 1
         this.edit = this.visibility = this.permissionEnum(res.data.history_visibility)
       } else if (res.code === 404) {
-        this.$router.replace('/404')
+        return this.$router.replace('/404')
       } else {
         this.error = true
         this.msg = res.code + ' ' + res.msg

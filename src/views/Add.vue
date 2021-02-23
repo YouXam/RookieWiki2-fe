@@ -94,6 +94,7 @@ export default {
   }),
   methods: {
     submit: async function () {
+      this.save()
       this.confirm_submit = false
       const update = {
         log: this.log,
@@ -104,6 +105,7 @@ export default {
       const res = await this.post('article/', update)
       this.app.notice(res.msg, res.code === 200)
       if (res.code === 401) this.app.login_data.show = true
+      if (res.code === 423) return this.$router.push('/user/' + this.app.username)
       if (res.code !== 200) return
       localStorage.setItem('new', '')
       this.$router.push('/article/' + res.article._id)
