@@ -148,7 +148,7 @@
     </v-snackbar>
 
     <!--导航栏-->
-    <v-app-bar app color="white" class="elevation-3" elevate-on-scroll>
+    <v-app-bar app color="white" class="elevation-3" elevate-on-scroll v-show="showBar">
       <v-app-bar-nav-icon
         v-if="$vuetify.breakpoint.smAndDown"
         @click.stop="drawer = !drawer"
@@ -332,6 +332,7 @@ import md5 from 'md5'
 
 export default {
   data: () => ({
+    showBar: true,
     search_text: '',
     verified: false,
     showTop: false,

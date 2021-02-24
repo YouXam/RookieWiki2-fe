@@ -67,6 +67,7 @@
         <mavon-editor
           v-model="content"
           @imgAdd="imgAdd"
+          @fullScreen="fullScreen"
           style="min-height: 65vh; z-index: 1"
           :tabSize="4"
           :subfield="!$vuetify.breakpoint.smAndDown"
@@ -103,7 +104,8 @@ export default {
         visibility: this.permissionEnum(this.visibility)
       }
       const res = await this.post('article/', update)
-      this.app.notice(res.msg, res.code === 200)
+      if (res.code === 200) this.app.notice('提交成功', true)
+      else this.app.notice('提交失败: ' + res.msg, false)
       if (res.code === 401) this.app.login_data.show = true
       if (res.code === 423) return this.$router.push('/user/' + this.app.username)
       if (res.code !== 200) return
@@ -140,6 +142,9 @@ export default {
       this.content = article.content
       this.visibility = article.visibility
       this.isload = false
+    },
+    fullScreen: function (sta) {
+      this.app.showBar = !sta
     }
   },
   async created () {

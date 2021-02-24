@@ -81,6 +81,7 @@
           <mavon-editor
             v-model="content"
             @imgAdd="imgAdd"
+            @fullScreen="fullScreen"
             style="min-height: 60vh; z-index: 1"
             :tabSize="4"
             :subfield="!$vuetify.breakpoint.smAndDown"
@@ -175,6 +176,9 @@ export default {
       this.content = article.content
       this.visibility = article.visibility
       this.isload = false
+    },
+    fullScreen: function (sta) {
+      this.app.showBar = !sta
     }
   },
   async created () {
