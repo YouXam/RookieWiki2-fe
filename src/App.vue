@@ -136,7 +136,7 @@
     <v-snackbar
       v-model="notification.show"
       :color="notification.color"
-      timeout="1500"
+      timeout="3000"
       top
     >
       {{ notification.text }}

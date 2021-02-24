@@ -71,7 +71,7 @@
                       second: '2-digit'
                     }).format(new Date(item.date))
                   }}
-                  {{ ['', '隐藏', '删除'][item.history_visibility - 1] }}
+                  {{ ['', '隐藏'][item.history_visibility - 1] }}
                 </v-card-text>
               </v-card>
             </v-timeline-item>

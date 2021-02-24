@@ -84,7 +84,18 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: savedPosition.y,
+          left: savedPosition.x,
+          behavior: 'smooth'
+        })
+      }, 500)
+    }
+  }
 })
 
 export default router

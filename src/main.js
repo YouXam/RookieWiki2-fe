@@ -50,7 +50,7 @@ Vue.prototype.post = async function (url, data) {
   const res = await fetch(base + url, options)
   return await res.json()
 }
-Vue.prototype.permissionEnum = e => ({ 正常: 1, 隐藏: 2, 删除: 3, 1: '正常', 2: '隐藏', 3: '删除' })[e]
+Vue.prototype.permissionEnum = e => ({ 正常: 1, 保护: 2, 隐藏: 3, 1: '正常', 2: '保护', 3: '隐藏' })[e]
 new Vue({
   router,
   vuetify: new Vuetify(),

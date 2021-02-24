@@ -5488,10 +5488,9 @@ markdown-it-ins@^3.0.1:
   resolved "https://registry.npm.taobao.org/markdown-it-ins/download/markdown-it-ins-3.0.1.tgz#c09356b917cf1dbf73add0b275d67ab8c73d4b4d"
   integrity sha1-wJNWuRfPHb9zrdCyddZ6uMc9S00=
 
-markdown-it-katex@^2.0.3:
+"markdown-it-katex@git+https://github.com/418sec/markdown-it-katex.git":
   version "2.0.3"
-  resolved "https://registry.npm.taobao.org/markdown-it-katex/download/markdown-it-katex-2.0.3.tgz#d7b86a1aea0b9d6496fab4e7919a18fdef589c39"
-  integrity sha1-17hqGuoLnWSW+rTnkZoY/e9YnDk=
+  resolved "git+https://github.com/418sec/markdown-it-katex.git#405b599f6133a8309ca318c3e074fa38fbc413d2"
   dependencies:
     katex "^0.6.0"
 
@@ -5536,10 +5535,10 @@ match-at@^0.1.0:
   resolved "https://registry.npm.taobao.org/match-at/download/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
   integrity sha1-JdBA0pF3dwTV5lVru3kjDsLeBUA=
 
-mavon-editor-x@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/mavon-editor-x/download/mavon-editor-x-1.0.1.tgz#4e61a7ea7b654370e752acba2d86b4a50b7213fa"
-  integrity sha1-TmGn6ntlQ3DnUqy6LYa0pQtyE/o=
+mavon-editor-x@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/mavon-editor-x/download/mavon-editor-x-1.0.2.tgz?cache=0&sync_timestamp=1614092045770&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmavon-editor-x%2Fdownload%2Fmavon-editor-x-1.0.2.tgz#a95eb5c167c20b129a89483f8102651925d25296"
+  integrity sha1-qV61wWfCCxKaiUg/gQJlGSXSUpY=
   dependencies:
     highlight.js "^9.11.0"
     highlight.js-async-webpack "^1.0.4"
@@ -8532,9 +8531,10 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
 
-"vue-jsdiff@https://github.com/YouXam/vue-jsdiff.git":
-  version "1.0.0"
-  resolved "https://github.com/YouXam/vue-jsdiff.git#7ac3d9f6c0a5e12550306d9e46cb6e50d5a709b3"
+vue-jsdiff@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/vue-jsdiff/download/vue-jsdiff-1.0.1.tgz#be292d0f0d187dc84bdce2690b994b9d630e68e4"
+  integrity sha1-viktDw0YfchL3OJpC5lLnWMOaOQ=
 
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.1.2"
