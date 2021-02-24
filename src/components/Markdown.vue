@@ -7,7 +7,7 @@
 <script>
 import MarkdownIt from 'markdown-it'
 import hljs from 'markdown-it-highlightjs'
-import latex from 'markdown-it-katex'
+import latex from '@youxam/markdown-it-katex-x'
 import sub from 'markdown-it-sub'
 import sup from 'markdown-it-sup'
 import container from 'markdown-it-container' // 自定义容器 https://github.com/markdown-it/markdown-it-container
