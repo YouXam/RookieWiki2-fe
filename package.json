@@ -21,7 +21,7 @@
         "markdown-it-sup": "^1.0.0",
         "markdown-it-task-lists": "^2.1.1",
         "markdown-it-toc": "^1.1.0",
-        "mavon-editor-x": "^1.0.2",
+        "mavon-editor-x": "^1.0.3",
         "md5": "^2.3.0",
         "nprogress": "^0.2.0",
         "vue": "^2.6.11",

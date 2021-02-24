@@ -5535,10 +5535,10 @@ match-at@^0.1.0:
   resolved "https://registry.npm.taobao.org/match-at/download/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
   integrity sha1-JdBA0pF3dwTV5lVru3kjDsLeBUA=
 
-mavon-editor-x@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npm.taobao.org/mavon-editor-x/download/mavon-editor-x-1.0.2.tgz?cache=0&sync_timestamp=1614092045770&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmavon-editor-x%2Fdownload%2Fmavon-editor-x-1.0.2.tgz#a95eb5c167c20b129a89483f8102651925d25296"
-  integrity sha1-qV61wWfCCxKaiUg/gQJlGSXSUpY=
+mavon-editor-x@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/mavon-editor-x/download/mavon-editor-x-1.0.3.tgz?cache=0&sync_timestamp=1614171158816&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmavon-editor-x%2Fdownload%2Fmavon-editor-x-1.0.3.tgz#3661b010220bff419476495a7670ec50e9a22497"
+  integrity sha1-NmGwECIL/0GUdkladnDsUOmiJJc=
   dependencies:
     highlight.js "^9.11.0"
     highlight.js-async-webpack "^1.0.4"
