@@ -1,6 +1,6 @@
 <template>
   <v-main class="lighten-3">
-    <v-container>
+    <v-container style="text-align:center">
       <strong>{{ info }}</strong>
       <v-divider></v-divider>
       <v-btn style="margin: 15px;" text x-large to="/">首页</v-btn>
@@ -24,6 +24,7 @@ export default {
 
 <style scoped>
 strong {
-  font-size: 100px;
+  font-size: 50px;
+  margin: 50px 0px;
 }
 </style>

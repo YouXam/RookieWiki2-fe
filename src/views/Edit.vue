@@ -113,7 +113,8 @@ export default {
       { name: '编辑', to: '.' },
       { name: '历史记录', to: '../history' }
     ],
-    raw: {}
+    raw: {},
+    items: ['正常', '保护', '隐藏']
   }),
   methods: {
     submit: async function () {
@@ -200,12 +201,6 @@ export default {
     this.permission = (user.data && user.data.permission) || 1
   },
   computed: {
-    items: function () {
-      const res = ['正常']
-      if (this.permission > 1) res.push('隐藏')
-      if (this.permission > 2) res.push('删除')
-      return res
-    },
     app: function () {
       return this.$parent.$parent.$parent.$parent
     }

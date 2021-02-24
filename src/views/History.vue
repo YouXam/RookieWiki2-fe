@@ -222,7 +222,7 @@ export default {
       const res = await this.post(
         'article/' + this.article_id + '/history/' + this.history_id,
         {
-          visibility: this.permissionEnum(this.edit)
+          visibility: { 正常: 1, 隐藏: 2 }[this.edit]
         }
       )
       this.app.notice(res.msg, res.code === 200)
@@ -242,7 +242,7 @@ export default {
         this.iffirst = res.data.num === 1
         this.history = res.data
         this.length = parseInt((res.total - 1) / (res.size || 20)) + 1
-        this.edit = this.visibility = this.permissionEnum(res.data.history_visibility)
+        this.edit = this.visibility = { 1: '正常', 2: '隐藏' }[res.data.history_visibility]
       } else if (res.code === 404) {
         return this.$router.replace('/404')
       } else {
@@ -269,7 +269,6 @@ export default {
     items: function () {
       const res = ['正常']
       if (this.permission > 1) res.push('隐藏')
-      if (this.permission > 2) res.push('删除')
       return res
     },
     app: function () {
